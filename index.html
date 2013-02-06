@@ -1,0 +1,21 @@
+<!doctype html>
+<html ng-app>
+  <head>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js"></script>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div ng-controller="TodoCtrl">
+      <span>Mark all as <a href="" ng-click="all_whole()">whole</a></span>
+      <ul class="unstyled">
+        <li ng-repeat="stock in stocks | orderBy:predicate:reverse">
+          <span class="stock-{{stock.status}}">{{stock.text}}</span>
+          <a href="" ng-click="whole(stock.id)">whole</a>
+          <a href="" ng-click="medium(stock.id)">medium</a>
+          <a href="" ng-click="empty(stock.id)">empty</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

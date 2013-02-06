@@ -1,0 +1,14 @@
+.stock-whole {
+  text-decoration: none;
+  color: green;
+}
+
+.stock-medium {
+  text-decoration: none;
+  color: orange;
+}
+
+.stock-empty {
+  text-decoration: line-through;
+  color: red;
+}

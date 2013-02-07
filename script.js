@@ -1,31 +1,19 @@
-function TodoCtrl($scope) {
+function ProviderCtrl($scope) {
   $scope.stocks = [
-    {id: 3, text:'Kawa', status:"empty"},
-    {id: 1, text:'Papier toaletowy', status:"medium"},
-    {id: 2, text:'Kawa', status:"whole"}];
+    {text:'Kawa', status:"empty"},
+    {text:'Papier toaletowy', status:"medium"},
+    {text:'Woda', status:"whole"}];
   $scope.predicate = 'status';
 
-  $scope.all_whole = function() {
+  $scope.setAllAsWhole = function() {
     angular.forEach($scope.stocks, function(stock) {
       stock.status = "whole";
     });
   };
 
-  $scope.whole = function(a) {
+  $scope.setStatus = function(name, status) {
     angular.forEach($scope.stocks, function(stock) {
-      if(stock.id == a) stock.status = "whole";
-    });
-  };
-
-  $scope.medium = function(a) {
-    angular.forEach($scope.stocks, function(stock) {
-      if(stock.id == a) stock.status = "medium";
-    });
-  };
-
-  $scope.empty = function(a) {
-    angular.forEach($scope.stocks, function(stock) {
-      if(stock.id == a) stock.status = "empty";
+      if(stock.text == name) stock.status = status;
     });
   };
 }

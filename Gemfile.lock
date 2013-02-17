@@ -82,6 +82,7 @@ PLATFORMS
 
 DEPENDENCIES
   datamapper
+  dm-migrations
   dm-sqlite-adapter
   sinatra
   sinatra-contrib

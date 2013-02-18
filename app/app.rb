@@ -1,5 +1,5 @@
 DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/mydatabase.db")
-module Provider
+module Supplismo
   class App < Sinatra::Base
     helpers Sinatra::JSON
     configure :development do

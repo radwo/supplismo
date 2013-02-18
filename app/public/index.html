@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html ng-app="stock">
+
+  <head>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular-resource.min.js"></script>
+    <script src="stocks_controller.js"></script>
+    <script src="stocks.js"></script>
+  </head>
+
+  <body ng-controller="StocksCtrl">
+    <ul>
+      <li ng-repeat="stock in stocks | orderBy:predicate:reverse">
+        {{stock.text}}: {{stock.status}}
+        <a ng-click="update(stock.id, 'empty')">Brak</a>
+        <a ng-click="update(stock.id, 'medium')">Połowa</a>
+        <a ng-click="update(stock.id, 'whole')">Pełno</a>
+      </li>
+    </ul>
+  </body>
+
+</html>

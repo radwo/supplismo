@@ -11,4 +11,4 @@ List all stocks
   curl -X GET http://localhost:9292/stocks
 
 Update stock with id = 1
-  curl -X PUT -d "status=whole" http://localhost:9292/stock/1
+  curl -X PUT -d "status=whole" http://localhost:9292/stocks/1

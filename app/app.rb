@@ -34,7 +34,7 @@ module Supplismo
 
     put '/stocks/:id' do
       stock = Stock.get(params[:id])
-      stock.status = params[:status]
+      stock.status = params[:status] unless params[:status].nil?
       stock.save
     end
 

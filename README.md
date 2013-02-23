@@ -27,7 +27,6 @@ Update stock with id = 1:
 ## TODO
 
 1. Add tests
-2. Improve UI
 
 ## Contributing
 

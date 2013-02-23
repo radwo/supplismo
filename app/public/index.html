@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 <html ng-app="stock">
-
   <head>
+    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular-resource.min.js"></script>
     <script src="stocks_controller.js"></script>
     <script src="stocks.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <link href="bootstrap.min.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="style.css" media="screen" rel="stylesheet" type="text/css" />
   </head>
-
   <body ng-controller="StocksCtrl">
-    <ul>
-      <li ng-repeat="stock in stocks | orderBy:predicate:reverse">
-        {{stock.text}}: {{stock.status}}
-        <a ng-click="update(stock, 'empty')">Brak</a>
-        <a ng-click="update(stock, 'medium')">Połowa</a>
-        <a ng-click="update(stock, 'whole')">Pełno</a>
-      </li>
-    </ul>
+    <div class="container main-container">
+      <ul class="stocks">
+        <li ng-repeat="stock in stocks | orderBy:predicate:reverse" class="{{stock.status}}">
+          <div class="progress">
+            <div class="bar {{stock.class_name}}" style="width: 55%;">{{stock.text}}</div>
+            <div class="bar bar-danger" style="width: 15%;"><a href="#" ng-click="update(stock, 'empty')">Brak</a></div>
+            <div class="bar bar-warning" style="width: 15%;"><a href="#" ng-click="update(stock, 'medium')">Połowa</a></div>
+            <div class="bar bar-success" style="width: 15%;"><a href="#" ng-click="update(stock, 'whole')">Pełno</a></div>
+          </div>
+        </li>
+      </ul>
+    </div>
   </body>
-
 </html>

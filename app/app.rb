@@ -6,6 +6,8 @@ module Supplismo
       register Sinatra::Reloader
     end
 
+    JSON_PARAMS = {:only => [:id, :text], :methods => [:status, :class_name]}
+
     get '/' do
       send_file 'app/public/index.html'
     end
@@ -13,7 +15,7 @@ module Supplismo
     get '/stocks' do
       content_type 'application/json'
       status 200
-      Stock.all.to_json(:only => [:id, :text], :methods => [:status])
+      Stock.all.to_json(JSON_PARAMS)
     end
 
     post '/stocks' do
@@ -29,7 +31,7 @@ module Supplismo
     end
 
     get '/stocks/:id' do
-      Stock.get(params[:id]).to_json(:only => [:id, :text], :methods => [:status])
+      Stock.get(params[:id]).to_json(JSON_PARAMS)
     end
 
     put '/stocks/:id' do
@@ -53,6 +55,10 @@ module Supplismo
     property :text, String
     property :status_id, Integer, :default => 0
 
+    def class_name
+      class_names[status_id] if (0..2).include?(status_id)
+    end
+
     def status
       status_names[status_id] if (0..2).include?(status_id)
     end
@@ -64,6 +70,10 @@ module Supplismo
     private
     def status_names
       ["empty", "medium", "whole"]
+    end
+
+    def class_names
+      ["bar-danger", "bar-warning", "bar-success"]
     end
   end
 end

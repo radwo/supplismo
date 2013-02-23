@@ -1,0 +1,27 @@
+body {
+  background-color: #FFF;
+  background: url(/pw_maze_white.png);
+}
+
+.main-container {
+  background-color: #FFF;
+  padding: 50px 0;
+  border: 1px solid #CCC;
+  margin-top: 100px;
+  width: 700px;
+}
+
+ul.stocks {
+  margin: auto;
+  width: 450px;
+  list-style: none;
+}
+
+.stocks a {
+  color: #FFF;
+}
+
+.stocks a:hover {
+  text-decoration: none;
+}
+

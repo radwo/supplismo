@@ -63,6 +63,7 @@ GEM
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
+    rake (10.0.0)
     rspec (2.12.0)
       rspec-core (~> 2.12.0)
       rspec-expectations (~> 2.12.0)
@@ -93,6 +94,7 @@ DEPENDENCIES
   datamapper
   dm-migrations
   dm-sqlite-adapter
+  rake
   rspec
   sinatra
   sinatra-contrib

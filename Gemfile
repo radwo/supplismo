@@ -8,5 +8,4 @@ gem 'dm-migrations'
 
 group :development, :test do
   gem 'rspec'
-  gem 'autotest'
 end

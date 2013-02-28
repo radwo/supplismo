@@ -1,10 +1,7 @@
 GEM
   remote: http://rubygems.org/
   specs:
-    ZenTest (4.9.0)
     addressable (2.2.8)
-    autotest (4.4.6)
-      ZenTest (>= 4.4.1)
     backports (2.8.2)
     bcrypt-ruby (3.0.1)
     data_objects (0.10.12)
@@ -93,7 +90,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  autotest
   datamapper
   dm-migrations
   dm-sqlite-adapter

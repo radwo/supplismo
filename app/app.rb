@@ -26,10 +26,6 @@ module Supplismo
       end
     end
 
-    delete '/stocks' do
-      Stock.all.destroy
-    end
-
     get '/stocks/:id' do
       Stock.get(params[:id]).to_json(JSON_PARAMS)
     end

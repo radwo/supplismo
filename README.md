@@ -24,10 +24,6 @@ Update stock with id = 1:
 
     $ curl -X PUT -d "status=whole" http://localhost:9292/stocks/1
 
-## TODO
-
-1. Add tests
-
 ## Contributing
 
 1. Fork it

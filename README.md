@@ -1,5 +1,7 @@
 # Supplismo
 
+[![Build status](https://secure.travis-ci.org/crashh/supplismo.png)](https://travis-ci.org/crashh/supplismo)
+
 Simply app to manage office supplies
 
 ## Usage

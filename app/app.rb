@@ -6,7 +6,7 @@ module Supplismo
       register Sinatra::Reloader
     end
 
-    JSON_PARAMS = {:only => [:id, :text], :methods => [:status, :class_name]}
+    JSON_PARAMS = {:only => [:id, :text], :methods => [:status_id, :class_name]}
 
     get '/' do
       send_file 'app/public/index.html'

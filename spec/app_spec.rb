@@ -50,7 +50,7 @@ describe 'API' do
     it {
       stock = Supplismo::Stock.create(text: 'text', status_id: 0)
       put "/stocks/#{stock.id}", { status: 'medium' }
-      Supplismo::Stock.first.reload.status_id.should be == 1
+      Supplismo::Stock.first.reload.status_id.should be == 2
     }
   end
 

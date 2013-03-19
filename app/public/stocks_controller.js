@@ -3,9 +3,10 @@ function StocksCtrl($scope, Stock) {
   $scope.predicate = 'status_id';
 
   $scope.update = function(stock, status){
-   stock.$update({status:status});
-   stock.$get(function(s){
-     stock = s;
+   stock.$update({status:status}, function() {
+    stock.$get(function(s){
+      stock = s;
+    });
    });
   };
 };

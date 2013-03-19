@@ -25,3 +25,6 @@ ul.stocks {
   text-decoration: none;
 }
 
+.stocks .progress {
+  margin-bottom: 7px;
+}

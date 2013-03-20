@@ -12,7 +12,7 @@ describe 'site' do
   end
 end
 
-describe 'API' do
+describe 'stocks API' do
   before {
     Supplismo::Stock.all.destroy
   }
@@ -60,6 +60,39 @@ describe 'API' do
       Supplismo::Stock.count.should be == 1
       delete "/stocks/#{stock.id}"
       Supplismo::Stock.count.should be == 0
+    }
+  end
+end
+
+describe 'special_request API', :type => :api do
+  context 'list of special requests' do
+    before {
+      @sr = Supplismo::SpecialRequest.create(text: 'Kielbasa')
+    }
+
+    let(:url) { '/special_requests' }
+    specify do
+      get "#{url}"
+
+      requests_json = Supplismo::SpecialRequest.all.to_json
+      last_response.status.should eql(200)
+      last_response.body.should eql(requests_json)
+      requests = JSON.parse(last_response.body)
+      requests.any? { |r| r["text"] == "Kielbasa" }.should be_true
+    end
+  end
+
+  context 'creating a request' do
+    before :all do
+      Supplismo::SpecialRequest.destroy
+    end
+    let(:url) { '/special_requests' }
+    specify {
+      post url, {text: 'YerbaMate'}
+      special_request = Supplismo::SpecialRequest.first(text: 'YerbaMate')
+
+      last_response.status.should eq(201)
+      last_response.body.should eq(special_request.to_json)
     }
   end
 end

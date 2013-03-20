@@ -41,6 +41,20 @@ module Supplismo
       stock.destroy
     end
 
+    # SpecialRequest
+
+    get '/special_requests' do
+      content_type 'application/json'
+      status 200
+      SpecialRequest.all.to_json
+    end
+
+    post '/special_requests' do
+      special_request = SpecialRequest.create(text: params['text'])
+      status 201
+      special_request.to_json
+    end
+
     run! if app_file == $0
   end
 end

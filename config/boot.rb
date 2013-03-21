@@ -2,7 +2,7 @@ ENV["RACK_ENV"] ||= "development"
 
 require 'sinatra/base'
 require 'sinatra/json'
-require "sinatra/reloader"
+require "sinatra/reloader" if development?
 require 'data_mapper'
 
 require 'bundler'

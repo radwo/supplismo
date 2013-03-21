@@ -27,17 +27,17 @@ module Supplismo
     end
 
     get '/stocks/:id' do
-      Stock.get(params[:id]).to_json(JSON_PARAMS)
+      Stock.get(params[:id].to_i).to_json(JSON_PARAMS)
     end
 
     put '/stocks/:id' do
-      stock = Stock.get(params[:id])
+      stock = Stock.get(params[:id].to_i)
       stock.status = params[:status] unless params[:status].nil?
       stock.save
     end
 
     delete '/stocks/:id' do
-      stock = Stock.get(params[:id])
+      stock = Stock.get(params[:id].to_i)
       stock.destroy
     end
 

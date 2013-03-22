@@ -1,6 +1,7 @@
 # Supplismo
 
 [![Build status](https://secure.travis-ci.org/crashh/supplismo.png)](https://travis-ci.org/crashh/supplismo)
+[![Code Climate](https://codeclimate.com/github/crashh/supplismo.png)](https://codeclimate.com/github/crashh/supplismo)
 
 Simply app to manage office supplies
 

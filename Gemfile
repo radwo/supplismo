@@ -10,6 +10,7 @@ gem 'dm-migrations'
 gem 'unicorn'
 
 group :development do
+  gem 'tux'
   gem 'capistrano'
   gem 'rvm-capistrano'
 end

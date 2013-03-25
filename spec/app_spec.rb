@@ -8,7 +8,7 @@ describe 'site' do
 
   it "content" do
     get "/"
-    last_response.body.should include('<html ng-app="stock">')
+    last_response.body.should include('<html ng-app="app">')
   end
 end
 
@@ -64,13 +64,13 @@ describe 'stocks API' do
   end
 end
 
-describe 'special_request API', :type => :api do
-  context 'list of special requests' do
+describe 'request API', :type => :api do
+  context 'list of requests' do
     before {
       @sr = Supplismo::SpecialRequest.create(text: 'Kielbasa')
     }
 
-    let(:url) { '/special_requests' }
+    let(:url) { '/requests' }
     specify do
       get "#{url}"
 
@@ -86,7 +86,7 @@ describe 'special_request API', :type => :api do
     before :all do
       Supplismo::SpecialRequest.destroy
     end
-    let(:url) { '/special_requests' }
+    let(:url) { '/requests' }
     specify {
       post url, {text: 'YerbaMate'}
       special_request = Supplismo::SpecialRequest.first(text: 'YerbaMate')

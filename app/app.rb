@@ -1,4 +1,3 @@
-DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/mydatabase.db")
 module Supplismo
   class App < Sinatra::Base
     helpers Sinatra::JSON
@@ -43,19 +42,21 @@ module Supplismo
 
     # SpecialRequest
 
-    get '/special_requests' do
+    get '/requests' do
       content_type 'application/json'
       status 200
-      SpecialRequest.all.to_json
+      requests = SpecialRequest.all
+      requests.count > 0 ? requests.to_json : "[]"
     end
 
-    post '/special_requests' do
-      special_request = SpecialRequest.create(text: params['text'])
-      status 201
-      special_request.to_json
+    post '/requests' do
+      unless params['text'].nil?
+        special_request = SpecialRequest.create(text: params['text'])
+        status 201
+        special_request.to_json
+      end
     end
 
     run! if app_file == $0
   end
 end
-DataMapper.finalize.auto_upgrade!

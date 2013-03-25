@@ -3,8 +3,8 @@ module Supplismo
     include DataMapper::Resource
 
     property :id, Serial
-    property :text, String
-    property :ordered, Boolean
+    property :text, String, :required => true
+    property :ordered, Boolean, :default => false
 
   end
 end

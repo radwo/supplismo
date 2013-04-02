@@ -2,13 +2,13 @@
 <html ng-app="app">
   <head>
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular-resource.min.js"></script>
-    <script src="module.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular-resource.min.js"></script>
     <script src="requests_controller.js"></script>
     <script src="stocks_controller.js"></script>
     <script src="stocks.js"></script>
     <script src="request.js"></script>
+    <script src="module.js"></script>
     <script src="bootstrap.min.js"></script>
     <link href="bootstrap.min.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="style.css" media="screen" rel="stylesheet" type="text/css" />
@@ -41,7 +41,7 @@
             <th>Nazwa</th>
           </tr>
           <tr ng-repeat="request in requests | orderBy:predicate:reverse">
-            <td>{{$index+1}}.</td><td>{{request.text}}</td>
+            <td id="request_{{request.id}}">{{$index+1}}.</td><td>{{request.text}}</td>
           </tr>
         </table>
       </div>

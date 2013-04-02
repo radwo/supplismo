@@ -1,5 +1,9 @@
 require 'spec_helper.rb'
 
+def app
+  Supplismo::App.new
+end
+
 describe 'site' do
   it "page ok" do
     get "/"
@@ -49,7 +53,8 @@ describe 'stocks API' do
   describe 'PUT stocks/:id' do
     it {
       stock = Supplismo::Stock.create(text: 'text', status_id: 0)
-      put "/stocks/#{stock.id}", { status: 'medium' }
+      put "/stocks/#{stock.id}", { status: 'medium' }.to_json, content_type: 'application/json'
+      last_response.status.should eql(200)
       Supplismo::Stock.first.reload.status_id.should be == 2
     }
   end
@@ -88,7 +93,7 @@ describe 'request API', :type => :api do
     end
     let(:url) { '/requests' }
     specify {
-      post url, {text: 'YerbaMate'}
+      post url, { text: 'YerbaMate' }.to_json, content_type: 'application/json'
       special_request = Supplismo::SpecialRequest.first(text: 'YerbaMate')
 
       last_response.status.should eq(201)

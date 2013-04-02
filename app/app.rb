@@ -30,9 +30,11 @@ module Supplismo
     end
 
     put '/stocks/:id' do
+      s = JSON.parse(request.body.read.to_s)
       stock = Stock.get(params[:id].to_i)
-      stock.status = params[:status] unless params[:status].nil?
+      stock.status = s['status'] unless s['status'].nil?
       stock.save
+      stock.to_json(JSON_PARAMS)
     end
 
     delete '/stocks/:id' do
@@ -50,8 +52,9 @@ module Supplismo
     end
 
     post '/requests' do
-      unless params['text'].nil?
-        special_request = SpecialRequest.create(text: params['text'])
+      r = JSON.parse(request.body.read.to_s)
+      unless r['text'].nil?
+        special_request = SpecialRequest.create(text: r['text'])
         status 201
         special_request.to_json
       end

@@ -1,6 +1,13 @@
+require File.join(File.dirname(__FILE__), '../config/environment')
+
 module Supplismo
   class App < Sinatra::Base
     helpers Sinatra::JSON
+
+    configure do
+      set :views, "#{File.dirname(__FILE__)}/views"
+    end
+
     configure :development do
       register Sinatra::Reloader
     end
@@ -8,7 +15,7 @@ module Supplismo
     JSON_PARAMS = {:only => [:id, :text], :methods => [:status_id, :class_name]}
 
     get '/' do
-      send_file 'app/public/index.html'
+      erb :index
     end
 
     get '/stocks' do

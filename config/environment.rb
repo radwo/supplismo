@@ -11,4 +11,3 @@ Bundler.require(:default, Sinatra::Base.environment)
 Dir["./app/**/*.rb"].each { |f| require f }
 DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/db/#{Sinatra::Base.environment}.db")
 DataMapper.finalize.auto_upgrade!
-

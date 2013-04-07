@@ -100,4 +100,30 @@ describe 'request API', :type => :api do
       last_response.body.should eq(special_request.to_json)
     }
   end
+  context 'deleting request' do
+    before :each do
+      @request = Supplismo::SpecialRequest.create(text: 'YerbaMate', user_token: '123')
+    end
+    after :each do
+      @request.destroy
+    end
+
+    let(:url) { "/requests/#{@request.id}" }
+    context 'by owner' do
+      specify {
+        set_cookie "user_token=123"
+        Supplismo::SpecialRequest.count.should be == 1
+        delete url
+        Supplismo::SpecialRequest.count.should be == 0
+      }
+    end
+    context 'by other user' do
+      specify {
+        set_cookie "user_token=0123"
+        Supplismo::SpecialRequest.count.should be == 1
+        delete url
+        Supplismo::SpecialRequest.count.should be == 1
+      }
+    end
+  end
 end

@@ -3,9 +3,11 @@ require File.join(File.dirname(__FILE__), '../config/environment')
 module Supplismo
   class App < Sinatra::Base
     helpers Sinatra::JSON
+    helpers Sinatra::Cookies
 
     configure do
       set :views, "#{File.dirname(__FILE__)}/views"
+      set :cookie_options, { httponly: false }
     end
 
     configure :development do
@@ -15,6 +17,7 @@ module Supplismo
     JSON_PARAMS = {:only => [:id, :text], :methods => [:status_id, :class_name]}
 
     get '/' do
+      cookies[:user_token] = SecureRandom.hex unless cookies.has_key?(:user_token)
       erb :index
     end
 
@@ -61,9 +64,19 @@ module Supplismo
     post '/requests' do
       r = JSON.parse(request.body.read.to_s)
       unless r['text'].nil?
-        special_request = SpecialRequest.create(text: r['text'])
+        special_request = SpecialRequest.create(text: r['text'], user_token: r['user_token'])
         status 201
         special_request.to_json
+      end
+    end
+
+    delete '/requests/:id' do
+      request = SpecialRequest.get(params[:id].to_i)
+      if request && request.user_token == cookies[:user_token]
+        request.destroy
+        status 200
+      else
+        status 404
       end
     end
 

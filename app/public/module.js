@@ -1,1 +1,1 @@
-angular.module('app', ['stockService', 'requestService']).controller(StocksCtrl).controller(RequestsCtrl);
+angular.module('app', ['stockService', 'requestService', 'ngCookies']).controller(StocksCtrl).controller(RequestsCtrl);

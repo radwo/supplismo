@@ -4,6 +4,7 @@ module Supplismo
 
     property :id, Serial
     property :text, String
+    property :user_token, String
     property :ordered, Boolean, :default => false
 
   end

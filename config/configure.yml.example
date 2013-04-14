@@ -1,1 +1,2 @@
 admin_password: password
+cookie_secret: '8ba8c72b772606bdab6d9188f3e7fc14'

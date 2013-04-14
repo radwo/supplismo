@@ -6,11 +6,6 @@ module Supplismo
     helpers Sinatra::Cookies
     register Sinatra::ConfigFile
 
-    use Rack::Session::Cookie, :key => 'rack.session',
-                           :path => '/',
-                           :expire_after => 2592000, # In seconds
-                           :secret => '8ba8c72b772606bdab6d9188f3e7fc14'
-
     class << self
       def config_file_path
         path = "#{File.dirname(__FILE__)}/../config/configure.yml"
@@ -20,6 +15,11 @@ module Supplismo
     end
 
     config_file config_file_path
+
+    use Rack::Session::Cookie, :key => 'rack.session',
+                           :path => '/',
+                           :expire_after => 2592000,
+                           :secret => settings.cookie_secret
 
     configure do
       set :views, "#{File.dirname(__FILE__)}/views"

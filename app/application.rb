@@ -11,7 +11,15 @@ module Supplismo
                            :expire_after => 2592000, # In seconds
                            :secret => '8ba8c72b772606bdab6d9188f3e7fc14'
 
-    config_file "#{File.dirname(__FILE__)}/../config/configure.yml"
+    class << self
+      def config_file_path
+        path = "#{File.dirname(__FILE__)}/../config/configure.yml"
+        path += '.example' unless File.exists?(path)
+        path
+      end
+    end
+
+    config_file config_file_path
 
     configure do
       set :views, "#{File.dirname(__FILE__)}/views"

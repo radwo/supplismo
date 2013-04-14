@@ -5,8 +5,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular-resource.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular-cookies.min.js"></script>
+    <script src="authentication_controller.js"></script>
     <script src="requests_controller.js"></script>
     <script src="stocks_controller.js"></script>
+    <script src="shared_service.js"></script>
+    <script src="authentication.js"></script>
     <script src="stocks.js"></script>
     <script src="request.js"></script>
     <script src="module.js"></script>
@@ -16,6 +19,14 @@
   </head>
   <body>
     <div class="main-container">
+      <div class="authentication" ng-controller="AuthenticationCtrl">
+        <h3>Admin</h3>
+        <form ng-submit="login()" ng-class="{hide: is_admin}">
+          <input ng-model="password" type="text" size="30" placeholder="Hasło" />
+          <input class="btn btn-primary" type="submit" value="Zaloguj"/>
+        </form>
+        <a href="#" ng-click="logout()" ng-class="{hide: !is_admin}">Wyloguj</a>
+      </div>
       <div class="stocks" ng-controller="StocksCtrl">
         <h3>Zamówienia stałe</h3>
         <ul>
@@ -46,7 +57,7 @@
             <td id="request_{{request.id}}">{{$index+1}}.</td>
             <td>
               {{request.text}}
-              <a class="btn btn-danger" ng-click="remove(request)" ng-class="{hide: request.user_token != user_token}" href="#">Usuń</a>
+              <a class="btn btn-danger" ng-click="remove(request)" ng-class="{hide: !can_remove_request(request)}" href="#">Usuń</a>
             </td>
           </tr>
         </table>

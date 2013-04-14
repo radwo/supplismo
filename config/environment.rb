@@ -3,6 +3,7 @@ Bundler.setup
 
 require 'sinatra/base'
 require 'sinatra/json'
+require "sinatra/config_file"
 require 'sinatra/reloader' if Sinatra::Base.development?
 require 'data_mapper'
 

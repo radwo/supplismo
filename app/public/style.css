@@ -19,7 +19,7 @@ form {
   margin: 70px auto 0;
 }
 
-.stocks, .requests {
+.stocks, .requests, .authentication {
   margin: auto;
   width: 450px;
 }

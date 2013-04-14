@@ -1,4 +1,5 @@
 config/deploy.rb
+config/configure.yml
 log/*
 db/*
 

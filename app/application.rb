@@ -4,6 +4,14 @@ module Supplismo
   class App < Sinatra::Base
     helpers Sinatra::JSON
     helpers Sinatra::Cookies
+    register Sinatra::ConfigFile
+
+    use Rack::Session::Cookie, :key => 'rack.session',
+                           :path => '/',
+                           :expire_after => 2592000, # In seconds
+                           :secret => '8ba8c72b772606bdab6d9188f3e7fc14'
+
+    config_file "#{File.dirname(__FILE__)}/../config/configure.yml"
 
     configure do
       set :views, "#{File.dirname(__FILE__)}/views"
@@ -72,12 +80,31 @@ module Supplismo
 
     delete '/requests/:id' do
       request = SpecialRequest.get(params[:id].to_i)
-      if request && request.user_token == cookies[:user_token]
+      if request && (request.user_token == cookies[:user_token] || Authentication.new(settings.admin_password, session).admin?)
         request.destroy
         status 200
       else
         status 404
       end
+    end
+
+    # Authentication
+
+    post '/authentication' do
+      p = JSON.parse(request.body.read.to_s)
+      content_type 'application/json'
+      auth = Authentication.new(settings.admin_password, session)
+      status auth.authenticate(p["password"]) ? 200 : 403
+    end
+
+    get '/authentication' do
+      auth = Authentication.new(settings.admin_password, session)
+      status auth.admin? ? 200 : 403
+    end
+
+    delete '/authentication' do
+      auth = Authentication.new(settings.admin_password, session)
+      status auth.destroy ? 200 : 500
     end
 
     run! if app_file == $0

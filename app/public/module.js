@@ -1,1 +1,4 @@
-angular.module('app', ['stockService', 'requestService', 'ngCookies']).controller(StocksCtrl).controller(RequestsCtrl);
+angular.module('app', ['stockService', 'requestService', 'sharedModule', 'authenticationService','ngCookies']).
+  controller(StocksCtrl).
+  controller(RequestsCtrl).
+  controller(AuthenticationCtrl);

@@ -117,6 +117,15 @@ describe 'request API', :type => :api do
         Supplismo::SpecialRequest.count.should be == 0
       }
     end
+    context 'by admin' do
+      specify {
+        Supplismo::Authentication.any_instance.stub(:admin?).and_return(true)
+        set_cookie "user_token=0123"
+        Supplismo::SpecialRequest.count.should be == 1
+        delete url
+        Supplismo::SpecialRequest.count.should be == 0
+      }
+    end
     context 'by other user' do
       specify {
         set_cookie "user_token=0123"
@@ -124,6 +133,46 @@ describe 'request API', :type => :api do
         delete url
         Supplismo::SpecialRequest.count.should be == 1
       }
+    end
+  end
+end
+
+describe 'authentication API', type: :api do
+  let(:url) { '/authentication' }
+  context 'login' do
+    specify 'success' do
+      Supplismo::Authentication.any_instance.stub(:authenticate).and_return(true)
+      post url, { password: 'password' }.to_json, content_type: 'application/json'
+      last_response.status.should eq(200)
+    end
+    specify 'failure' do
+      Supplismo::Authentication.any_instance.stub(:authenticate).and_return(false)
+      post url, { password: 'bad_passwrd' }.to_json
+      last_response.status.should eq(403)
+    end
+  end
+  context 'check' do
+    specify 'success' do
+      Supplismo::Authentication.any_instance.stub(:admin?).and_return(true)
+      get url
+      last_response.status.should eq(200)
+    end
+    specify 'failure' do
+      Supplismo::Authentication.any_instance.stub(:admin?).and_return(false)
+      get url
+      last_response.status.should eq(403)
+    end
+  end
+  context 'delete' do
+    specify 'success' do
+      Supplismo::Authentication.any_instance.stub(:destroy).and_return(true)
+      delete url
+      last_response.status.should eq(200)
+    end
+    specify 'failure' do
+      Supplismo::Authentication.any_instance.stub(:destroy).and_return(false)
+      delete url
+      last_response.status.should eq(500)
     end
   end
 end

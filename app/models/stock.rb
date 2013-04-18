@@ -7,24 +7,24 @@ module Supplismo
     property :status_id, Integer, :default => 0
 
     def class_name
-      class_names[status_id] if (0..3).include?(status_id)
+      class_names[status_id]
     end
 
     def status
-      status_names[status_id] if (0..3).include?(status_id)
+      status_names[status_id]
     end
 
     def status=(status)
-      self.status_id = status_names.key(status)
+      self.status_id = status_names.index(status)
     end
 
     private
     def status_names
-      {0 => "empty", 1 => "low", 2 => "medium", 3 => "whole"}
+      ["empty", "low", "medium", "whole"]
     end
 
     def class_names
-      {0 => "bar-danger", 1 => "bar-warning", 2 => "bar-success", 3 => ""}
+      ["bar-danger", "bar-warning", "bar-success", ""]
     end
   end
 end

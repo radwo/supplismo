@@ -100,20 +100,21 @@ module Supplismo
 
     # Authentication
 
+    before '/authentication' do
+      @auth = Authentication.new(settings.admin_password, session)
+    end
+
     post '/authentication' do
       p = JSON.parse(request.body.read.to_s)
-      auth = Authentication.new(settings.admin_password, session)
-      status auth.authenticate(p["password"]) ? 200 : 403
+      status @auth.authenticate(p["password"]) ? 200 : 403
     end
 
     get '/authentication' do
-      auth = Authentication.new(settings.admin_password, session)
-      status auth.admin? ? 200 : 403
+      status @auth.admin? ? 200 : 403
     end
 
     delete '/authentication' do
-      auth = Authentication.new(settings.admin_password, session)
-      status auth.destroy ? 200 : 500
+      status @auth.destroy ? 200 : 500
     end
 
     run! if app_file == $0

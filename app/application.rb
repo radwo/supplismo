@@ -42,7 +42,6 @@ module Supplismo
     end
 
     get '/stocks' do
-      status 200
       Stock.all.to_json(JSON_PARAMS)
     end
 
@@ -54,27 +53,28 @@ module Supplismo
       end
     end
 
+    before '/stocks/:id' do
+      @stock = Stock.get(params[:id].to_i)
+    end
+
     get '/stocks/:id' do
-      Stock.get(params[:id].to_i).to_json(JSON_PARAMS)
+      @stock.to_json(JSON_PARAMS)
     end
 
     put '/stocks/:id' do
       s = JSON.parse(request.body.read.to_s)
-      stock = Stock.get(params[:id].to_i)
-      stock.status = s['status'] unless s['status'].nil?
-      stock.save
-      stock.to_json(JSON_PARAMS)
+      @stock.status = s['status'] unless s['status'].nil?
+      @stock.save
+      @stock.to_json(JSON_PARAMS)
     end
 
     delete '/stocks/:id' do
-      stock = Stock.get(params[:id].to_i)
-      stock.destroy
+      @stock.destroy
     end
 
     # SpecialRequest
 
     get '/requests' do
-      status 200
       requests = SpecialRequest.all
       requests.count > 0 ? requests.to_json : "[]"
     end
@@ -92,7 +92,6 @@ module Supplismo
       request = SpecialRequest.get(params[:id].to_i)
       if request && (request.user_token == cookies[:user_token] || Authentication.new(settings.admin_password, session).admin?)
         request.destroy
-        status 200
       else
         status 404
       end
@@ -106,15 +105,15 @@ module Supplismo
 
     post '/authentication' do
       p = JSON.parse(request.body.read.to_s)
-      status @auth.authenticate(p["password"]) ? 200 : 403
+      status 403 unless @auth.authenticate(p["password"])
     end
 
     get '/authentication' do
-      status @auth.admin? ? 200 : 403
+      status 403 unless @auth.admin?
     end
 
     delete '/authentication' do
-      status @auth.destroy ? 200 : 500
+      status 500 unless @auth.destroy
     end
 
     run! if app_file == $0

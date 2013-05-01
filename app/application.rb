@@ -32,13 +32,16 @@ module Supplismo
 
     JSON_PARAMS = {:only => [:id, :text], :methods => [:status_id, :class_name]}
 
+    before do
+      content_type 'application/json'
+    end
+
     get '/' do
       cookies[:user_token] = SecureRandom.hex unless cookies.has_key?(:user_token)
       erb :index
     end
 
     get '/stocks' do
-      content_type 'application/json'
       status 200
       Stock.all.to_json(JSON_PARAMS)
     end
@@ -71,7 +74,6 @@ module Supplismo
     # SpecialRequest
 
     get '/requests' do
-      content_type 'application/json'
       status 200
       requests = SpecialRequest.all
       requests.count > 0 ? requests.to_json : "[]"
@@ -100,7 +102,6 @@ module Supplismo
 
     post '/authentication' do
       p = JSON.parse(request.body.read.to_s)
-      content_type 'application/json'
       auth = Authentication.new(settings.admin_password, session)
       status auth.authenticate(p["password"]) ? 200 : 403
     end

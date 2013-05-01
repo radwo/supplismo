@@ -33,10 +33,10 @@
           <li ng-repeat="stock in stocks | orderBy:predicate:reverse" class="{{stock.status}}">
             <div class="progress">
               <div class="bar {{stock.class_name}}" style="width: 40%;">{{stock.text}}</div>
-              <div class="bar bar-danger" style="width: 15%;"><a href="#" ng-click="update(stock, 'empty')">Brak</a></div>
-              <div class="bar bar-warning" style="width: 15%;"><a href="#" ng-click="update(stock, 'low')">Końcówka</a></div>
-              <div class="bar bar-success" style="width: 15%;"><a href="#" ng-click="update(stock, 'medium')">Połowa</a></div>
-              <div class="bar" style="width: 15%;"><a href="#" ng-click="update(stock, 'whole')">Pełno</a></div>
+              <div class="bar bar-danger" style="width: 15%;"><a href="#" ng-click="update_status($index, 'empty')">Brak</a></div>
+              <div class="bar bar-warning" style="width: 15%;"><a href="#" ng-click="update_status($index, 'low')">Końcówka</a></div>
+              <div class="bar bar-success" style="width: 15%;"><a href="#" ng-click="update_status($index, 'medium')">Połowa</a></div>
+              <div class="bar" style="width: 15%;"><a href="#" ng-click="update_status($index, 'whole')">Pełno</a></div>
             </div>
           </li>
         </ul>

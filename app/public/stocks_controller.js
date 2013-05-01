@@ -2,10 +2,8 @@ function StocksCtrl($scope, Stock) {
   $scope.stocks = Stock.query();
   $scope.predicate = 'status_id';
 
-  $scope.update = function(stock, status){
-    stock.status = status;
-    stock.$update(function(s){
-      stock = s;
-    });
+  $scope.update_status = function($index, status){
+    $scope.stocks[$index].status = status;
+    $scope.stocks[$index].$update();
   };
 };

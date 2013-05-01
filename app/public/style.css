@@ -3,6 +3,9 @@ body {
   background: url(/pw_maze_white.png);
 }
 
+.progress .bar { cursor: pointer; }
+.progress .bar:first-child { cursor: default; }
+
 .btn {
   margin-bottom: 9px;
 }

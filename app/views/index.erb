@@ -25,7 +25,7 @@
           <input ng-model="password" type="text" size="30" placeholder="Hasło" />
           <input class="btn btn-primary" type="submit" value="Zaloguj"/>
         </form>
-        <a href="#" ng-click="logout()" ng-class="{hide: !is_admin}">Wyloguj</a>
+        <a ng-click="logout()" ng-class="{hide: !is_admin}">Wyloguj</a>
       </div>
       <div class="stocks" ng-controller="StocksCtrl">
         <h3>Zamówienia stałe</h3>
@@ -33,10 +33,10 @@
           <li ng-repeat="stock in stocks | orderBy:predicate:reverse" class="{{stock.status}}">
             <div class="progress">
               <div class="bar {{stock.class_name}}" style="width: 40%;">{{stock.text}}</div>
-              <div class="bar bar-danger" style="width: 15%;"><a href="#" ng-click="update_status($index, 'empty')">Brak</a></div>
-              <div class="bar bar-warning" style="width: 15%;"><a href="#" ng-click="update_status($index, 'low')">Końcówka</a></div>
-              <div class="bar bar-success" style="width: 15%;"><a href="#" ng-click="update_status($index, 'medium')">Połowa</a></div>
-              <div class="bar" style="width: 15%;"><a href="#" ng-click="update_status($index, 'whole')">Pełno</a></div>
+              <div class="bar bar-danger" style="width: 15%;"><a ng-click="update_status($index, 'empty')">Brak</a></div>
+              <div class="bar bar-warning" style="width: 15%;"><a ng-click="update_status($index, 'low')">Końcówka</a></div>
+              <div class="bar bar-success" style="width: 15%;"><a ng-click="update_status($index, 'medium')">Połowa</a></div>
+              <div class="bar" style="width: 15%;"><a ng-click="update_status($index, 'whole')">Pełno</a></div>
             </div>
           </li>
         </ul>
@@ -57,7 +57,7 @@
             <td id="request_{{request.id}}">{{$index+1}}.</td>
             <td>
               {{request.text}}
-              <a class="btn btn-danger" ng-click="remove(request)" ng-class="{hide: !can_remove_request(request)}" href="#">Usuń</a>
+              <a class="btn btn-danger" ng-click="remove($index)" ng-class="{hide: !can_remove_request($index)}">Usuń</a>
             </td>
           </tr>
         </table>

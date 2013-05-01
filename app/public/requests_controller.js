@@ -18,15 +18,19 @@ function RequestsCtrl($scope, Request, $resource, $cookies, sharedService) {
     }
   };
 
-  $scope.remove = function(request){
+  $scope.remove = function($index){
+    if($scope.reverse) {
+      $index = $scope.requests.length - 1 - $index;
+    }
+    var request = $scope.requests[$index];
     if(request.user_token == $cookies.user_token) {
-      request.$delete(function(){
-        $scope.requests.splice( $scope.requests.indexOf(request), 1 );
-      });
+      request.$delete();
+      $scope.requests.splice($index, 1);
     }
   };
 
-  $scope.can_remove_request = function(request){
+  $scope.can_remove_request = function($index){
+    var request = $scope.requests[$index];
     return request.user_token == $cookies.user_token || $scope.is_admin;
   };
 };

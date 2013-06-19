@@ -22,7 +22,6 @@ module Supplismo
                            :secret => settings.cookie_secret
 
     configure do
-      set :views, "#{File.dirname(__FILE__)}/views"
       set :cookie_options, { httponly: false }
     end
 
@@ -30,15 +29,19 @@ module Supplismo
       register Sinatra::Reloader
     end
 
+    configure :production, :development do
+      enable :logging
+    end
+
     JSON_PARAMS = {:only => [:id, :text], :methods => [:status_id, :class_name]}
 
-    before do
-      content_type 'application/json'
+    def html(view)
+      File.read File.join(File.dirname(__FILE__), 'public', "#{view.to_s}.html")
     end
 
     get '/' do
       cookies[:user_token] = SecureRandom.hex unless cookies.has_key?(:user_token)
-      erb :index
+      html :index
     end
 
     get '/stocks' do

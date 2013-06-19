@@ -1,0 +1,22 @@
+<div class="requests" ng-controller="RequestsCtrl">
+  <h3>Zamówienia specjalne</h3>
+  <form ng-submit="create()" name="newRequest" validate>
+    <input type="hidden" ng-model="request.user_token" ng-init="request.user_token=user_token" />
+    <input ng-model="request.text" required type="text" size="30" placeholder="Nazwa" />
+    <input class="btn btn-primary" type="submit" value="Dodaj" ng-disabled="newRequest.$invalid"/>
+  </form>
+  <table class="table table-striped">
+    <tr>
+      <th style="width: 5px">#</th>
+      <th>Nazwa</th>
+    </tr>
+    <tr ng-repeat="request in requests | orderBy:predicate:reverse">
+      <td id="request_{{request.id}}">{{$index+1}}.</td>
+      <td>
+        {{request.text}}
+        <a class="btn btn-danger" ng-click="remove($index)" ng-class="{hide: !can_remove_request($index)}">Usuń</a>
+      </td>
+    </tr>
+  </table>
+</div>
+
